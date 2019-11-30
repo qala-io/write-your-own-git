@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8e3ae0c_cb33dc10",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1007274
+      },
+      "writtenOn": "2019-11-30T21:29:59Z",
+      "side": 1,
+      "message": "Hm. Looks like something I\u0027ve seen before.",
+      "revId": "e0e05b6ad53dd7a1992ee4692a109c66ced84661",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
