@@ -21,4 +21,7 @@ public class Git {
         return new FsGitObjects(objectsDir);
     }
 
+    public GitObject add(String pattern) {
+        return new CommandAdd(workingDir, gitDir, getObjects()).add(pattern);
+    }
 }

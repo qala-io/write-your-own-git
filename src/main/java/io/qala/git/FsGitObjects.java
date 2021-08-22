@@ -36,18 +36,10 @@ class FsGitObjects {
         Path hashDir = dir.resolve(sha.getParentDirName());
         IoUtils.mkdirIfDoesNotExist(hashDir);
         File objectFile = hashDir.resolve(sha.getFilename()).toFile();
-        touch(objectFile);
+        IoUtils.touch(objectFile);
         try(FileOutputStream fileOutput = new FileOutputStream(objectFile);
             DeflaterOutputStream compressing = new DeflaterOutputStream(fileOutput)) {
             compressing.write(o.getFileContent());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    private static void touch(File file) {
-        try {
-            if(!file.createNewFile())
-                throw new RuntimeException("Couldn't create file " + file.getAbsolutePath());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
