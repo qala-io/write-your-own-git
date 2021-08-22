@@ -2,14 +2,11 @@ package io.qala.git;
 
 class Blob implements GitObject {
     private final byte[] data;
-    
+
     public Blob(byte[] data) {
         this.data = data;
     }
 
-    public Sha getSha() {
-        return Sha.from(getFileContent());
-    }
     public byte[] getFileContent() {
         byte[] header = ("blob " + data.length + "\0").getBytes();
         byte[] result = new byte[header.length + data.length];

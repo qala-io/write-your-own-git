@@ -13,9 +13,9 @@ import static org.junit.Assert.assertTrue;
 public class FsGitObjectsTest {
     private final Path projectDir = Paths.get("target/git", UUID.randomUUID().toString());
     private final Path objectsDir = projectDir.resolve(".git/objects");
-    private final FsGitObjects objects = new Git().init(projectDir);
+    private final FsGitObjects objects = Git.init(projectDir).getObjects();
 
-    @Test public void whenAddingObjects_ifParentHashDirDoesNotExist_itIsCreated() {
+    @Test public void whenAddingObjects_createsObjectFile_inGitDatabase() {
         Blob blob = new Blob("".getBytes());
         objects.add(blob);
 

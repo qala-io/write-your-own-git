@@ -1,7 +1,9 @@
 package io.qala.git;
 
 interface GitObject {
-    Sha getSha();
+    default Sha getSha() {
+        return Sha.from(getFileContent());
+    }
     byte[] getFileContent();
     byte[] getPayload();
 }

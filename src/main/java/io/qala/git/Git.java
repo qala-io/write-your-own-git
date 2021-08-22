@@ -3,12 +3,22 @@ package io.qala.git;
 import java.nio.file.Path;
 
 public class Git {
-    public FsGitObjects init(Path path) {
-        Path gitDir = path.resolve(".git");
-        if(gitDir.toFile().exists())
-            throw new RuntimeException("Couldn't init a new Git project since it already exists: " + gitDir.toAbsolutePath());
+    private final Path workingDir;
+    private final Path gitDir;
+
+    public Git(Path workingDir) {
+        this.workingDir = workingDir;
+        this.gitDir = workingDir.resolve(".git");
+    }
+    public static Git init(Path path) {
+        new CommandInit().init(path);
+        return new Git(path);
+    }
+
+    public FsGitObjects getObjects() {
         Path objectsDir = gitDir.resolve("objects");
         IoUtils.mkdirsIfDoesNotExist(objectsDir);
         return new FsGitObjects(objectsDir);
     }
+
 }
