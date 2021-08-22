@@ -7,7 +7,8 @@ public class Git {
         Path gitDir = path.resolve(".git");
         if(gitDir.toFile().exists())
             throw new RuntimeException("Couldn't init a new Git project since it already exists: " + gitDir.toAbsolutePath());
-        IoUtils.mkdirsIfDoesNotExist(gitDir);
-        return new FsGitObjects(gitDir);
+        Path objectsDir = gitDir.resolve("objects");
+        IoUtils.mkdirsIfDoesNotExist(objectsDir);
+        return new FsGitObjects(objectsDir);
     }
 }

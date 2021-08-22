@@ -17,7 +17,7 @@ class Blob implements GitObject {
         System.arraycopy(data, 0, result, header.length, data.length);
         return result;
     }
-    public byte[] getData() {
+    public byte[] getPayload() {
         return data;
     }
 }
