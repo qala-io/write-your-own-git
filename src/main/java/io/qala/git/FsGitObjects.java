@@ -22,8 +22,12 @@ class FsGitObjects {
         try (FileInputStream in = new FileInputStream(objectFile.toFile());
              InflaterInputStream input = new InflaterInputStream(in)){
             byte[] data = input.readAllBytes();
-            if(ByteUtils.startsWith(data, "blob".getBytes()))
-                return new Blob(ByteUtils.extractObjectPayload(data));
+            byte[] payload = ByteUtils.extractObjectPayload(data);
+            ObjectType type = ObjectType.parse(data);
+            if(type == ObjectType.BLOB)
+                return new Blob(payload);
+            else if(type == ObjectType.TREE)
+                return new Tree(payload);
             throw new UnsupportedOperationException();
         } catch (IOException e) {
             throw new RuntimeException(e);
