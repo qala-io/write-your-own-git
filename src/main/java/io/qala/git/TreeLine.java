@@ -1,6 +1,9 @@
 package io.qala.git;
 
 public record TreeLine(ObjectType type, Sha sha, String filename) {
+    TreeLine(String filename, GitObject o) {
+        this(o.getPayload().getType(), o.getSha(), filename);
+    }
     static TreeLine parse(String objectFileLine) {
         String objectType = objectFileLine.substring(7, 11);
         String sha = objectFileLine.substring(12, 52);

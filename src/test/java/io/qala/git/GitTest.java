@@ -26,4 +26,14 @@ public class GitTest {
         assertEquals(expectedSha, blob.getSha());
         assertEquals("", new String(git.getObjects().get(expectedSha).getPayload().toBytes()));
     }
+    @Test public void addingFolderAddsAllFilesInside() {
+        Path file = projectDir.resolve("hello.txt");
+        IoUtils.touch(file);
+        GitObject tree = git.add(projectDir.toString());
+
+        Sha expectedSha = new Sha("ac81123ee76ed8e0037419421cecf533260d28ae");
+        assertEquals(expectedSha, tree.getSha());
+        assertEquals("100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    hello.txt\n",
+                new String(git.getObjects().get(expectedSha).getPayload().toBytes()));
+    }
 }
