@@ -7,6 +7,11 @@ import java.security.NoSuchAlgorithmException;
 record Sha(String hex) {
     private static final byte[] HEX_ARRAY = "0123456789abcdef".getBytes(StandardCharsets.US_ASCII);
 
+    Sha {
+        if(hex.length() != 40)
+            throw new IllegalArgumentException("Hex isn't 40 bytes: [" + hex + "]");
+    }
+
     static Sha from(byte[] content) {
         try {
             return new Sha(bytesToHex(MessageDigest.getInstance("SHA-1").digest(content)));
