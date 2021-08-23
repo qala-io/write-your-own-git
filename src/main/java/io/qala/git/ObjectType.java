@@ -3,10 +3,10 @@ package io.qala.git;
 enum ObjectType {
     TREE("tree"), BLOB("blob"), COMMIT("commit");
 
-    final String name;
+    final String officialName;
 
     ObjectType(String name) {
-        this.name = name;
+        this.officialName = name;
     }
 
     static ObjectType parse(byte[] objectFileContent) {

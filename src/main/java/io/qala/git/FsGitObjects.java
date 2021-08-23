@@ -25,18 +25,19 @@ class FsGitObjects {
             byte[] payload = ByteUtils.extractObjectPayload(data);
             ObjectType type = ObjectType.parse(data);
             if(type == ObjectType.BLOB)
-                return new Blob(payload);
+                return new GitObject(new Blob(payload));
             else if(type == ObjectType.TREE)
-                return new Tree(payload);
+                return new GitObject(new Tree(payload));
             throw new UnsupportedOperationException();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-    public void add(GitObject o) {
+    public GitObject add(ObjectPayload payload) {
+        GitObject o = new GitObject(payload);
         Sha sha = o.getSha();
         if(get(sha) != null)
-            return;
+            return get(sha);
         Path hashDir = dir.resolve(sha.getParentDirName());
         IoUtils.mkdirIfDoesNotExist(hashDir);
         File objectFile = hashDir.resolve(sha.getFilename()).toFile();
@@ -47,5 +48,6 @@ class FsGitObjects {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return o;
     }
 }

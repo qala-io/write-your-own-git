@@ -24,6 +24,6 @@ public class GitTest {
 
         Sha expectedSha = new Sha("e69de29bb2d1d6434b8b29ae775ad8c2e48c5391");
         assertEquals(expectedSha, blob.getSha());
-        assertEquals("", new String(git.getObjects().get(expectedSha).getPayload()));
+        assertEquals("", new String(git.getObjects().get(expectedSha).getPayload().toBytes()));
     }
 }

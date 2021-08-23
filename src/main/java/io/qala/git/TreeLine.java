@@ -11,6 +11,6 @@ public record TreeLine(ObjectType type, Sha sha, String filename) {
     @Override
     public String toString() {
         String filemode = type == ObjectType.BLOB ? "100644" : "040000";
-        return filemode + " " + type.name + " " + sha + "    " + filename;
+        return filemode + " " + type.officialName + " " + sha + "    " + filename;
     }
 }

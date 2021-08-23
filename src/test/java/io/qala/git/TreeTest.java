@@ -26,6 +26,6 @@ public class TreeTest {
         assertEquals(
                 new TreeLine(ObjectType.TREE, new Sha("6e0275aefdc866a7f89e05a38a4bed4e51ef0a6d"), "src"),
                 tree.getLines().get(3));
-        assertEquals(objectFilePayload, new String(tree.getPayload()));
+        assertEquals(objectFilePayload, new String(tree.toBytes()));
     }
 }

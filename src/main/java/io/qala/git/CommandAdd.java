@@ -22,8 +22,7 @@ class CommandAdd {
         File file = path.toFile();
         if(file.isFile()) {
             Blob object = new Blob(IoUtils.readFully(file));
-            objects.add(object);
-            return object;
+            return objects.add(object);
         }
         throw new UnsupportedOperationException();
     }
