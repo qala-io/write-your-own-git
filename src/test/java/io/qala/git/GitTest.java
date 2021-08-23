@@ -36,4 +36,23 @@ public class GitTest {
         assertEquals("100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    hello.txt\n",
                 new String(git.getObjects().get(expectedSha).getPayload().toBytes()));
     }
+    @Test public void addingFolderStepsIntoInsideFoldersRecursively() {
+        Path subDir = projectDir.resolve("hello").resolve("world");
+        Path file = subDir.resolve("hello.txt");
+        IoUtils.mkdirsIfDoesNotExist(subDir);
+        IoUtils.touch(file);
+        GitObject tree = git.add(projectDir.toString());
+
+        Sha expectedSha = new Sha("474863d5f6f97606818390b2ee9699d41a1aa452");
+        assertEquals(expectedSha, tree.getSha());
+        assertEquals(
+                "040000 tree baf6b9f90244576d65a36c9facbc9a9abc408ac2    hello\n",
+                new String(git.getObjects().get(expectedSha).getPayload().toBytes()));
+        assertEquals(
+                "040000 tree ac81123ee76ed8e0037419421cecf533260d28ae    world\n",
+                new String(git.getObjects().get(new Sha("baf6b9f90244576d65a36c9facbc9a9abc408ac2")).getPayload().toBytes()));
+        assertEquals(
+                "100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    hello.txt\n",
+                new String(git.getObjects().get(new Sha("ac81123ee76ed8e0037419421cecf533260d28ae")).getPayload().toBytes()));
+    }
 }
