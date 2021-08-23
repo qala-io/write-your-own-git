@@ -12,18 +12,21 @@ class Tree implements GitObject {
         for(String line: s.split("\n"))
             lines.add(TreeLine.parse(line));
     }
+    public Tree(List<TreeLine> lines) {
+        this.lines = lines;
+    }
 
     public List<TreeLine> getLines() {
         return lines;
     }
 
     public byte[] getFileContent() {
-        return null;
-//        byte[] header = ("tree " + data.length() + "\0").getBytes();
-//        byte[] result = new byte[header.length + data.length()];
-//        System.arraycopy(header, 0, result, 0, header.length);
-//        System.arraycopy(data.getBytes(), 0, result, header.length, data.length());
-//        return result;
+        byte[] payload = getPayload();
+        byte[] header = ("tree " + payload.length + "\0").getBytes();
+        byte[] result = new byte[header.length + payload.length];
+        System.arraycopy(header, 0, result, 0, header.length);
+        System.arraycopy(payload, 0, result, header.length, payload.length);
+        return result;
     }
     public byte[] getPayload() {
         StringBuilder s = new StringBuilder();

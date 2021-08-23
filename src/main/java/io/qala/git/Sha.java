@@ -26,6 +26,9 @@ record Sha(String hex) {
     public String getFilename() {
         return hex().substring(2);
     }
+    public String getObjectFilePath() {
+        return getParentDirName() + "/" + getFilename();
+    }
 
     private static String bytesToHex(byte[] bytes) {
         byte[] hexChars = new byte[bytes.length * 2];

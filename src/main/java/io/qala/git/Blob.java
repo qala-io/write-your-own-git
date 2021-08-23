@@ -8,10 +8,11 @@ class Blob implements GitObject {
     }
 
     public byte[] getFileContent() {
-        byte[] header = ("blob " + data.length + "\0").getBytes();
-        byte[] result = new byte[header.length + data.length];
+        byte[] payload = getPayload();
+        byte[] header = ("blob " + payload.length + "\0").getBytes();
+        byte[] result = new byte[header.length + payload.length];
         System.arraycopy(header, 0, result, 0, header.length);
-        System.arraycopy(data, 0, result, header.length, data.length);
+        System.arraycopy(payload, 0, result, header.length, payload.length);
         return result;
     }
     public byte[] getPayload() {
