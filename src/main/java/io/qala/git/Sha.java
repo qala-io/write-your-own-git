@@ -36,4 +36,8 @@ record Sha(String hex) {
         }
         return new String(hexChars, StandardCharsets.UTF_8);
     }
+
+    public String toString() {
+        return hex;
+    }
 }

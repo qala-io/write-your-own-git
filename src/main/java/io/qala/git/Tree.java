@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Tree implements GitObject {
-    private List<TreeLine> lines;
+    private final List<TreeLine> lines;
 
     public Tree(byte[] payload) {
         String s = new String(payload);
@@ -26,6 +26,9 @@ class Tree implements GitObject {
 //        return result;
     }
     public byte[] getPayload() {
-        return null;
+        StringBuilder s = new StringBuilder();
+        for (TreeLine line : lines)
+            s.append(line).append('\n');
+        return s.toString().getBytes();
     }
 }

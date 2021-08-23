@@ -7,4 +7,10 @@ public record TreeLine(ObjectType type, Sha sha, String filename) {
         String filename = objectFileLine.substring(56);
         return new TreeLine(ObjectType.parse(objectType), new Sha(sha), filename);
     }
+
+    @Override
+    public String toString() {
+        String filemode = type == ObjectType.BLOB ? "100644" : "040000";
+        return filemode + " " + type.name + " " + sha + "    " + filename;
+    }
 }
